@@ -1,0 +1,20 @@
+{
+  "name": "netflix-clone-react-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatteoDv89/Netflix-clone-react-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MatteoDv89/Netflix-clone-react-app/issues"
+  },
+  "homepage": "https://github.com/MatteoDv89/Netflix-clone-react-app#readme"
+}
