@@ -200,6 +200,7 @@ const Menu = styled.div`
   span {
     color: rgb(249, 249, 249);
     font-size: 18px;
+    font-weight: 600;
     letter-spacing: 1.42px;
     line-height: 1, 08;
     padding: 2px 0px;
