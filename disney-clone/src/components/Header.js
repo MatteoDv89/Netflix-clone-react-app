@@ -1,13 +1,62 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { auth, provider } from "./firebase";
-import { signInWithPopup } from "@firebase/auth";
+import { signInWithPopup, signOut } from "@firebase/auth";
+import { useNavigate } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, signOutUser } from "../redux/actions/user.action";
 
 const Header = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const userName = useSelector((state) => state.name);
+  const userPhoto = useSelector((state) => state.photo);
+  console.log(useSelector((state) => state));
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setUser(user);
+        navigate("/home");
+      }
+    });
+  }, [userName]);
+
   const handleAuth = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
+    if (!userName) {
+      signInWithPopup(auth, provider)
+        .then((result) => setUser(result.user))
+        .catch((err) => console.log(err));
+    } else if (userName) {
+      signOut(auth)
+        .then(() => {
+          unsetUser();
+          navigate("/");
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const unsetUser = () => {
+    dispatch(
+      signOutUser({
+        name: "",
+        emai: "",
+        photo: "",
+      })
+    );
+  };
+
+  const setUser = (user) => {
+    dispatch(
+      getUser({
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+      })
+    );
   };
 
   return (
@@ -15,43 +64,92 @@ const Header = (props) => {
       <Logo>
         <img src="./image/logo.svg" alt="" />
       </Logo>
-      <Menu>
-        <a href="/home">
-          <img src="./image/home-icon.svg" alt="HOME" />
-          <span>HOME</span>
-        </a>
-      </Menu>
-      <Menu>
-        <a href="/">
-          <img src="./image/search-icon.svg" alt="HOME" />
-          <span>SEARCH</span>
-        </a>
-      </Menu>
-      <Menu>
-        <a href="/watchlist">
-          <img src="./image/watchlist-icon.svg" alt="HOME" />
-          <span>WATCHLIST</span>
-        </a>
-      </Menu>
 
-      <Menu>
-        <a href="/movies">
-          <img src="./image/movie-icon.svg" alt="HOME" />
-          <span>MOVIES</span>
-        </a>
-      </Menu>
-      <Menu>
-        <a href="/series">
-          <img src="./image/series-icon.svg" alt="HOME" />
-          <span>SERIES</span>
-        </a>
-      </Menu>
-      <Login onClick={handleAuth}>Login</Login>
+      {!userName ? (
+        <Login onClick={handleAuth}>Login</Login>
+      ) : (
+        <>
+          <Menu>
+            <a href="/home">
+              <img src="./image/home-icon.svg" alt="HOME" />
+              <span>HOME</span>
+            </a>
+          </Menu>
+          <Menu>
+            <a href="/">
+              <img src="./image/search-icon.svg" alt="HOME" />
+              <span>SEARCH</span>
+            </a>
+          </Menu>
+
+          <Menu>
+            <a href="/movies">
+              <img src="./image/movie-icon.svg" alt="HOME" />
+              <span>MOVIES</span>
+            </a>
+          </Menu>
+          <Menu>
+            <a href="/series">
+              <img src="./image/series-icon.svg" alt="HOME" />
+              <span>SERIES</span>
+            </a>
+          </Menu>
+          <Menu />
+          <SignOut>
+            <UserImg src={userPhoto} />
+            <DropDown>
+              <span onClick={handleAuth}>Sign out</span>
+            </DropDown>
+          </SignOut>
+        </>
+      )}
     </Nav>
   );
 };
 
 export default Header;
+
+const DropDown = styled.div`
+  position: absolute;
+  top: 48px;
+  right: 0px;
+  background-color: rgb(19, 19, 19);
+  border: 1px solid rgb(151, 151, 151, 0.34);
+  padding: 7px;
+  display: flex;
+  justify-content: center;
+
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0/ 50%) 0px 0px 18px 0px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  width: 100px;
+  opacity: 0;
+`;
+
+const UserImg = styled.img`
+  height: 100%;
+  width: 48px;
+  border-radius: 50%;
+  position: relative;
+`;
+
+const SignOut = styled.div`
+  position: relative;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    ${DropDown} {
+      opacity: 1;
+      transition-duration: 1s;
+    }
+  }
+`;
 
 const Login = styled.a`
   background-color: rgb(0, 0, 0, 0.6);
@@ -77,24 +175,26 @@ const Menu = styled.div`
   display: flex;
   flex-flow: row nowrap;
   height: 100%;
-  justify-content: center;
+  min-width: 100px;
+  margin-left: 10px;
   margin: 0px;
   padding: 0px;
   position: relative;
-  margin-right: 8px;
+  margin-right: 10px;
 
   a {
     display: flex;
     align-items: center;
-    padding: 0 12px;
+    padding: 0 8px;
     pointer: cursor;
   }
 
   img {
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
     min-width: 20px;
     z-index: auto;
+    margin-right: 5px;
   }
 
   span {
@@ -158,7 +258,7 @@ const Nav = styled.nav`
   height: 70px;
   background-color: #090b13;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 0 35px;
   letter-spacing: 16px;
   z-index: 3;

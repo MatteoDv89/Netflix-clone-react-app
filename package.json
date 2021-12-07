@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/MatteoDv89/Netflix-clone-react-app/issues"
   },
-  "homepage": "https://github.com/MatteoDv89/Netflix-clone-react-app#readme"
+  "homepage": "https://github.com/MatteoDv89/Netflix-clone-react-app#readme",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.6.2",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1"
+  }
 }
