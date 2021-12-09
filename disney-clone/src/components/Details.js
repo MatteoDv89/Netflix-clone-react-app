@@ -10,6 +10,8 @@ const Details = () => {
   const [imdbData, setImdbData] = useState(null);
   const id = useParams();
   const [modal, setModal] = useState(false);
+  const [detailSubtilte, setDetailSubtile] = useState("");
+  const [imdbDataSerie, setImdbDataSerie] = useState("");
 
   useEffect(() => {
     setData(movieData.recommend);
@@ -18,9 +20,17 @@ const Details = () => {
     setImdbData(detailsData?.imdbId);
   }, [data]);
 
+  useEffect(() => {
+    setDetailSubtile(detailsData?.subTitle);
+  }, [detailSubtilte]);
+
+  useEffect(() => {
+    setImdbDataSerie(imdbData + "-1-1");
+  }, [imdbData]);
+
   const detailsData = data?.filter((movie) => movie.id === id.id)[0];
   console.log(detailsData?.backgroundImg);
-  console.log(imdbData);
+  console.log(imdbDataSerie);
 
   return (
     <>
@@ -54,7 +64,11 @@ const Details = () => {
             <span onClick={() => setModal(false)} />
             <span onClick={() => setModal(false)} />
             <iframe
-              src={"https://autoembed.xyz/movie/imdb/" + imdbData}
+              src={
+                detailSubtilte?.includes("Série")
+                  ? `https://autoembed.xyz/tv/imdb/${imdbDataSerie}`
+                  : "https://autoembed.xyz/movie/imdb/" + imdbData
+              }
               width="100%"
               height="100%"
               title={detailsData?.title}
