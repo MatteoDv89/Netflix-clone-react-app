@@ -1,32 +1,36 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import isEmpty from "../utils";
+import { useSelector } from "react-redux";
 
-const Recommends = () => {
+const Recommends = (movies) => {
+  const moviesData = movies.movies.current;
+
+  let recommendArray = [];
+  const setRecommendArray = async () => {
+    await moviesData.map(
+      (movie) => (recommendArray = [...recommendArray, movie])
+    );
+  };
+  setRecommendArray();
+
   return (
     <Container>
       <h4>Recommended for You</h4>
       <Content>
-        <Wrap>
-          <Link to="/">
-            <img src="/image/raya.jpg" alt="" />
-          </Link>
-        </Wrap>
-        <Wrap>
-          <Link to="/">
-            <img src="/image/coco.jpg" alt="" />
-          </Link>
-        </Wrap>
-        <Wrap>
-          <Link to="/">
-            <img src="/image/loki.jpg" alt="" />
-          </Link>
-        </Wrap>
-        <Wrap>
-          <Link to="/">
-            <img src="/image/hawk.jpg" alt="" />
-          </Link>
-        </Wrap>
+        {!isEmpty(recommendArray[0]) &&
+          recommendArray.map((movie, key) => {
+            return (
+              <>
+                <Wrap key={key}>
+                  <Link to={"/details/" + movie.id}>
+                    <img src={movie.cardImg} alt="" />
+                  </Link>
+                </Wrap>
+              </>
+            );
+          })}
       </Content>
     </Container>
   );

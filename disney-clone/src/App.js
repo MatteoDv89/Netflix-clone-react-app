@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import Home from "./components/Home";
+import Details from "./components/Details";
 
 function App() {
   return (
@@ -11,18 +12,16 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Login />} />
-        </Routes>
-        <Routes>
+
           <Route path="/home" element={<Home />} />
-        </Routes>
-        <Routes>
+
           <Route path="/search" />
-        </Routes>
-        <Routes>
+
           <Route path="/movies" />
-        </Routes>
-        <Routes>
+
           <Route path="/series" />
+
+          <Route path="/details/:id" element={<Details />} />
         </Routes>
       </Router>
     </div>

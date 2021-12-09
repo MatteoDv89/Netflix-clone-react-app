@@ -4,16 +4,17 @@ import { auth, provider } from "./firebase";
 import { signInWithPopup, signOut } from "@firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
 import { getUser, signOutUser } from "../redux/actions/user.action";
 
 const Header = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const userName = useSelector((state) => state.name);
-  const userPhoto = useSelector((state) => state.photo);
-  console.log(useSelector((state) => state));
+  const userDataName = useSelector((state) => state.user.name);
+  const userDataPhoto = useSelector((state) => state.user.photo);
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
@@ -22,14 +23,14 @@ const Header = (props) => {
         navigate("/home");
       }
     });
-  }, [userName]);
+  }, [userDataName]);
 
   const handleAuth = () => {
-    if (!userName) {
+    if (!userDataName) {
       signInWithPopup(auth, provider)
         .then((result) => setUser(result.user))
         .catch((err) => console.log(err));
-    } else if (userName) {
+    } else if (userDataName) {
       signOut(auth)
         .then(() => {
           unsetUser();
@@ -65,7 +66,7 @@ const Header = (props) => {
         <img src="./image/logo.svg" alt="" />
       </Logo>
 
-      {!userName ? (
+      {!userDataName ? (
         <Login onClick={handleAuth}>Login</Login>
       ) : (
         <>
@@ -96,7 +97,7 @@ const Header = (props) => {
           </Menu>
           <Menu />
           <SignOut>
-            <UserImg src={userPhoto} />
+            <UserImg src={userDataPhoto} />
             <DropDown>
               <span onClick={handleAuth}>Sign out</span>
             </DropDown>
