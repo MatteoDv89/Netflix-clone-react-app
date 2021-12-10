@@ -12,9 +12,24 @@ const Details = () => {
   const [modal, setModal] = useState(false);
   const [detailSubtilte, setDetailSubtile] = useState("");
   const [imdbDataSerie, setImdbDataSerie] = useState("");
+  const [numberEpisode, setNumberEpisode] = useState(1);
+
+  const Array = Object.keys(movieData).map((i) => movieData[i]);
+
+  const movieArray = [...Array[0], ...Array[1], ...Array[2]];
+  const type = movieArray.filter((f) => f.id.includes(id.id))[0].type;
 
   useEffect(() => {
-    setData(movieData.recommend);
+    if (type === "recommend") {
+      setData(movieData.recommend);
+    }
+    if (type === "news") {
+      setData(movieData.news);
+    }
+
+    if (type === "original") {
+      setData(movieData.original);
+    }
   }, []);
   useEffect(() => {
     setImdbData(detailsData?.imdbId);
@@ -25,8 +40,8 @@ const Details = () => {
   }, [detailSubtilte]);
 
   useEffect(() => {
-    setImdbDataSerie(imdbData + "-1-1");
-  }, [imdbData]);
+    setImdbDataSerie(imdbData + `-1-${numberEpisode}`);
+  }, [imdbData, numberEpisode]);
 
   const detailsData = data?.filter((movie) => movie.id === id.id)[0];
   console.log(detailsData?.backgroundImg);

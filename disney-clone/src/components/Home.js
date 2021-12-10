@@ -13,7 +13,7 @@ import { collection, getDocs } from "@firebase/firestore";
 
 const Home = () => {
   const userName = useSelector((state) => state.user.name);
-  const MovieData = useSelector((state) => state.movies.recommend);
+  const MovieData = useSelector((state) => state.movies);
   const dispatch = useDispatch();
 
   let recommends = [];
@@ -55,15 +55,19 @@ const Home = () => {
     getMovieData();
   }, [userName]);
 
-  const moviesRef = useRef(recommends);
+  const moviesRefRecommends = useRef(recommends);
+  const moviesRefOriginals = useRef(originals);
+  const moviesRefNews = useRef(news);
+
+  
 
   return (
     <Container>
       <ImgSlider />
       <Viewers />
-      <Recommends movies={moviesRef} />
-      <News />
-      <Discovery />
+      <Recommends movies={moviesRefRecommends} />
+      <News movies={moviesRefNews} />
+      <Discovery movies={moviesRefOriginals} />
     </Container>
   );
 };

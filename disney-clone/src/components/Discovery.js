@@ -2,31 +2,36 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const Discovery = () => {
+import isEmpty from "../utils";
+import { useSelector } from "react-redux";
+
+const Discovery = ({ movies }) => {
+  const moviesData = movies.current;
+
+  let originaldArray = [];
+  const setOriginaldArray = async () => {
+    await moviesData.map(
+      (movie) => (originaldArray = [...originaldArray, movie])
+    );
+  };
+  setOriginaldArray();
+
   return (
     <Container>
-      <h4>Discovery original</h4>
+      <h4>Disney Original</h4>
       <Content>
-        <Wrap>
-          <Link to="/">
-            <img src="" alt="" />
-          </Link>
-        </Wrap>
-        <Wrap>
-          <Link to="/">
-            <img src="" alt="" />
-          </Link>
-        </Wrap>
-        <Wrap>
-          <Link to="/">
-            <img src="" alt="" />
-          </Link>
-        </Wrap>
-        <Wrap>
-          <Link to="/">
-            <img src="" alt="" />
-          </Link>
-        </Wrap>
+        {!isEmpty(originaldArray[0]) &&
+          originaldArray.map((movie, key) => {
+            return (
+              <>
+                <Wrap key={key}>
+                  <Link to={"/details/" + movie.id} type={"original"}>
+                    <img src={movie.cardImg} alt="" />
+                  </Link>
+                </Wrap>
+              </>
+            );
+          })}
       </Content>
     </Container>
   );
