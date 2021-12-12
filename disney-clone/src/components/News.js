@@ -2,31 +2,36 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import isEmpty from "../utils";
+import { useSelector } from "react-redux";
+
 const News = ({ movies }) => {
+  const moviesData = movies.current;
+
+  let newsArray = [];
+  const setNewsArray = async () => {
+    await moviesData.map(
+      (movie) => (newsArray = [...newsArray, movie])
+    );
+  };
+  setNewsArray();
+
   return (
     <Container>
-      <h4>News on Disney</h4>
+      <h4>Disney Original</h4>
       <Content>
-        <Wrap>
-          <Link to="/">
-            <img src="" alt="" />
-          </Link>
-        </Wrap>
-        <Wrap>
-          <Link to="/">
-            <img src="" alt="" />
-          </Link>
-        </Wrap>
-        <Wrap>
-          <Link to="/">
-            <img src="" alt="" />
-          </Link>
-        </Wrap>
-        <Wrap>
-          <Link to="/">
-            <img src="" alt="" />
-          </Link>
-        </Wrap>
+        {!isEmpty(newsArray[0]) &&
+          newsArray.map((movie, key) => {
+            return (
+              <>
+                <Wrap key={key}>
+                  <Link to={"/details/" + movie.id}>
+                    <img src={movie.cardImg} alt="" />
+                  </Link>
+                </Wrap>
+              </>
+            );
+          })}
       </Content>
     </Container>
   );

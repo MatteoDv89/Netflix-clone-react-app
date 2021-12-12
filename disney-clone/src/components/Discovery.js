@@ -25,7 +25,7 @@ const Discovery = ({ movies }) => {
             return (
               <>
                 <Wrap key={key}>
-                  <Link to={"/details/" + movie.id} type={"original"}>
+                  <Link to={"/details/" + movie.id}>
                     <img src={movie.cardImg} alt="" />
                   </Link>
                 </Wrap>

@@ -4,6 +4,7 @@ const initialState = {
   recommend: null,
   original: null,
   news: null,
+  marvel: null,
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -13,6 +14,7 @@ const movieReducer = (state = initialState, action) => {
         recommend: action.payload.recommend,
         original: action.payload.original,
         news: action.payload.news,
+        marvel: action.payload.marvel,
       };
     }
 

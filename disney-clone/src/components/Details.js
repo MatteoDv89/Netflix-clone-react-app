@@ -16,7 +16,9 @@ const Details = () => {
 
   const Array = Object.keys(movieData).map((i) => movieData[i]);
 
-  const movieArray = [...Array[0], ...Array[1], ...Array[2]];
+  console.log(Array);
+
+  const movieArray = [...Array[0], ...Array[1], ...Array[2], ...Array[3]];
   const type = movieArray.filter((f) => f.id.includes(id.id))[0].type;
 
   useEffect(() => {
@@ -30,7 +32,12 @@ const Details = () => {
     if (type === "original") {
       setData(movieData.original);
     }
+
+    if (type === "marvel") {
+      setData(movieData.marvel);
+    }
   }, []);
+
   useEffect(() => {
     setImdbData(detailsData?.imdbId);
   }, [data]);
@@ -86,6 +93,7 @@ const Details = () => {
               }
               width="100%"
               height="100%"
+              allowFullScreen
               title={detailsData?.title}
             ></iframe>
           </Modal>
@@ -100,8 +108,9 @@ const Modal = styled.div`
   position: absolute;
   height: 100%;
   width: 100%;
-  margin-right: 25px;
-  margin-left: -25px;
+  top: -26px;
+  bottom: 0px;
+  left: 0px;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.1);

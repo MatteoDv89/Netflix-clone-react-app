@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMovies } from "../redux/actions/movie.action";
 import db from "./firebase";
 import { collection, getDocs } from "@firebase/firestore";
+import Marvel from "./Marvel";
 
 const Home = () => {
   const userName = useSelector((state) => state.user.name);
@@ -19,6 +20,7 @@ const Home = () => {
   let recommends = [];
   let originals = [];
   let news = [];
+  let marvel = [];
 
   useEffect(() => {
     const getMovieData = async () => {
@@ -38,6 +40,10 @@ const Home = () => {
             news.push({ id: doc.id, ...doc.data() });
             break;
 
+          case "marvel":
+            marvel.push({ id: doc.id, ...doc.data() });
+            break;
+
           default:
             return null;
         }
@@ -48,6 +54,7 @@ const Home = () => {
           recommend: recommends,
           original: originals,
           news: news,
+          marvel: marvel,
         })
       );
     };
@@ -58,16 +65,16 @@ const Home = () => {
   const moviesRefRecommends = useRef(recommends);
   const moviesRefOriginals = useRef(originals);
   const moviesRefNews = useRef(news);
-
-  
+  const moviesRefMarvel = useRef(marvel);
 
   return (
     <Container>
       <ImgSlider />
       <Viewers />
       <Recommends movies={moviesRefRecommends} />
-      <News movies={moviesRefNews} />
       <Discovery movies={moviesRefOriginals} />
+      <Marvel movies={moviesRefMarvel} />
+      <News movies={moviesRefNews} />
     </Container>
   );
 };
