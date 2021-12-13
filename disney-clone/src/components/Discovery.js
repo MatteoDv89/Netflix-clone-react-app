@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import isEmpty from "../utils";
 import { useSelector } from "react-redux";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 const Discovery = ({ movies }) => {
   const moviesData = movies.current;
@@ -18,7 +19,13 @@ const Discovery = ({ movies }) => {
 
   return (
     <Container>
-      <h4>Disney Original</h4>
+      {!isEmpty(originaldArray[0]) ? (
+        <h4>Disney original </h4>
+      ) : (
+        <h4>
+          <i className="fas fa-spinner fa-spin"></i>
+        </h4>
+      )}
       <Content>
         {!isEmpty(originaldArray[0]) &&
           originaldArray.map((movie, key) => {

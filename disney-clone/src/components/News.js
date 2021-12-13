@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import isEmpty from "../utils";
 import { useSelector } from "react-redux";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 const News = ({ movies }) => {
   const moviesData = movies.current;
@@ -16,7 +17,13 @@ const News = ({ movies }) => {
 
   return (
     <Container>
-      <h4>News</h4>
+      {!isEmpty(newsArray[0]) ? (
+        <h4>News </h4>
+      ) : (
+        <h4>
+          <i className="fas fa-spinner fa-spin"></i>
+        </h4>
+      )}
       <Content>
         {!isEmpty(newsArray[0]) &&
           newsArray.map((movie, key) => {

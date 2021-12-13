@@ -7,7 +7,9 @@ const Login = (props) => {
     <Container>
       <Content>
         <CTA>
-          <CTALogoOne src="./image/cta-logo-one.svg"></CTALogoOne>
+          <CTALogoOne>
+            <span>N</span>SB<span>+</span>
+          </CTALogoOne>
           <Button>GET ALL THERE</Button>
           <Description>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
@@ -103,12 +105,30 @@ const CTA = styled.div`
   margin-left: auto;
 `;
 
-const CTALogoOne = styled.img`
-margin-bottom= 12px
+const CTALogoOne = styled.div`
+
+color: rgb(249,249,249,0.9);
 max-width: 300px;
 min-height 1px;
 display:block;
-width:100%`;
+width:100%;
+letter-spacing: -15px;
+font-weight: 700;
+font-size: 6em;
+span:first-child{
+  font-weight: 900;
+  font-size: 1.5em;
+ 
+}
+margin-right:auto;
+margin-left:auto;
+position:relative;
+bottom:-42px;
+
+
+ 
+
+`;
 
 const CTALogoTwo = styled.img`
 margin-top= 12px

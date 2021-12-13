@@ -54,6 +54,19 @@ const Details = () => {
   console.log(detailsData?.backgroundImg);
   console.log(imdbDataSerie);
 
+  const handlePrevious = () => {
+    setNumberEpisode(numberEpisode - 1);
+    console.log(numberEpisode);
+    setModal(false);
+    setModal(true);
+  };
+  const handleNext = () => {
+    setNumberEpisode(numberEpisode + 1);
+    console.log(numberEpisode);
+    setModal(false);
+    setModal(true);
+  };
+
   return (
     <>
       <Container>
@@ -82,26 +95,140 @@ const Details = () => {
           </Controls>
         </ContentMeta>
         {modal && imdbData !== null && (
-          <Modal>
-            <span onClick={() => setModal(false)} />
-            <span onClick={() => setModal(false)} />
-            <iframe
-              src={
-                detailSubtilte?.includes("Série")
-                  ? `https://autoembed.xyz/tv/imdb/${imdbDataSerie}`
-                  : "https://autoembed.xyz/movie/imdb/" + imdbData
-              }
-              width="100%"
-              height="100%"
-              allowFullScreen
-              title={detailsData?.title}
-            ></iframe>
-          </Modal>
+          <>
+            <Modal>
+              <span onClick={() => setModal(false)} />
+              <span onClick={() => setModal(false)} />
+
+              <iframe
+                src={
+                  detailSubtilte?.includes("Série")
+                    ? `https://autoembed.xyz/tv/imdb/${imdbDataSerie}`
+                    : "https://autoembed.xyz/movie/imdb/" + imdbData
+                }
+                width="100%"
+                height="100%"
+                allowFullScreen
+                title={detailsData?.title}
+              ></iframe>
+            </Modal>
+            {detailSubtilte?.includes("Série") && numberEpisode !== 1 && (
+              <ButtonPrevious>
+                <img src="/image/play-icon-black.png" alt="" />
+                <span onClick={handlePrevious}> Previous Episode</span>
+              </ButtonPrevious>
+            )}
+            {detailSubtilte?.includes("Série") && (
+              <ButtonNext>
+                <img src="/image/play-icon-black.png" alt="" />
+                <span onClick={handleNext}>Next Episode</span>
+              </ButtonNext>
+            )}
+          </>
         )}
       </Container>
     </>
   );
 };
+
+const ButtonPrevious = styled.button`
+  font-size: 12px;
+  margin: 0px 22px 0px 0px;
+  padding: 0px 24px;
+  height: 35px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 1.8px;
+  text-align: center;
+  text-transform: uppercase;
+  background: rgb(249, 249, 249);
+  border: none;
+  color: rgb(0, 0, 0);
+  z-index: 10;
+  position: absolute;
+  bottom: 1%;
+  left: 10%;
+  box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
+    rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+  img {
+    width: 28px;
+  }
+
+  &:hover {
+    background: rgb(198, 198, 198);
+  }
+
+  @media (max-width: 768px) {
+    height: 25px;
+    padding: 0px 22px;
+    font-size: 8px;
+    margin: 0px 10px 0px 0px;
+
+    img {
+      width: 20px;
+    }
+  }
+
+  span {
+    position: relative;
+    top: 1px;
+    font-weight: 500;
+    margin-left: 3.5px;
+  }
+`;
+
+const ButtonNext = styled.button`
+  font-size: 12px;
+  margin: 0px 22px 0px 0px;
+  padding: 0px 24px;
+  height: 35px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 1.8px;
+  text-align: center;
+  text-transform: uppercase;
+  background: rgb(249, 249, 249);
+  border: none;
+  color: rgb(0, 0, 0);
+  z-index: 10;
+  position: absolute;
+  bottom: 1%;
+  right: 10%;
+  box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
+    rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+
+  img {
+    width: 28px;
+  }
+
+  &:hover {
+    background: rgb(198, 198, 198);
+  }
+
+  @media (max-width: 768px) {
+    height: 25px;
+    padding: 0px 22px;
+    font-size: 8px;
+    margin: 0px 10px 0px 0px;
+
+    img {
+      width: 20px;
+    }
+  }
+
+  span {
+    position: relative;
+    top: 1px;
+    font-weight: 500;
+    margin-left: 3.5px;
+  }
+`;
 
 const Modal = styled.div`
   display: flex;

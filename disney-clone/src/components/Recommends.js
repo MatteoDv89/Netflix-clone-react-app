@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import isEmpty from "../utils";
 import { useSelector } from "react-redux";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 const Recommends = (movies) => {
   const moviesData = movies.movies.current;
@@ -17,7 +18,13 @@ const Recommends = (movies) => {
 
   return (
     <Container>
-      <h4>Recommended for You</h4>
+      {!isEmpty(recommendArray[0]) ? (
+        <h4>Recommended for you </h4>
+      ) : (
+        <h4>
+          <i className="fas fa-spinner fa-spin"></i>
+        </h4>
+      )}
       <Content>
         {!isEmpty(recommendArray[0]) &&
           recommendArray.map((movie, key) => {

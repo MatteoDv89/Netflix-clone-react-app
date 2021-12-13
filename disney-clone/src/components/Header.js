@@ -63,7 +63,7 @@ const Header = (props) => {
   return (
     <Nav>
       <Logo>
-        <img src="./image/logo.svg" alt="" />
+        <span>N</span>SB<span>+</span>
       </Logo>
 
       {!userDataName ? (
@@ -241,16 +241,26 @@ const Menu = styled.div`
 
 const Logo = styled.a`
   padding: 0;
-  width: 80px;
+  
   margin-top: 4px;
   margin-right: 8px;
-  max-heigth: 70px;
+  max-heigth: 18px;
   font-size: 0;
-  display: inline-block;
-  img {
-    display: block;
-    width: 100%;
-  }
+ 
+  
+color: rgb(249,249,249,0.9);
+max-width: 300px;
+min-height 1px;
+display:block;
+
+letter-spacing: -5px;
+font-weight: 700;
+font-size: 2em;
+span:first-child{
+  font-weight: 900;
+  font-size: 1.1em;
+ 
+}
 `;
 const Nav = styled.nav`
   position: fixed;

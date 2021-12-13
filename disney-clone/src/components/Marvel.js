@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 const Marvel = ({ movies }) => {
   let settings = {
@@ -39,8 +40,13 @@ const Marvel = ({ movies }) => {
 
   return (
     <Container>
-      <h4>Marvel Selection</h4>
-
+      {!isEmpty(marvelArray[0]) ? (
+        <h4>Marvel Selection </h4>
+      ) : (
+        <h4>
+          <i className="fas fa-spinner fa-spin"></i>
+        </h4>
+      )}
       <Carousel {...settings}>
         {!isEmpty(marvelArray[0]) &&
           marvelArray.map((movie, key) => {
