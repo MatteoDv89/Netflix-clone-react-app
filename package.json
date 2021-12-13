@@ -19,7 +19,8 @@
   "homepage": "https://github.com/MatteoDv89/Netflix-clone-react-app#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
-    "firebase-tools": "^9.23.1",
+    "dotenv": "^10.0.0",
+    "firebase-tools": "^8.20.0",
     "global": "^4.4.0",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",

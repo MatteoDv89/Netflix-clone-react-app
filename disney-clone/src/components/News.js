@@ -10,15 +10,13 @@ const News = ({ movies }) => {
 
   let newsArray = [];
   const setNewsArray = async () => {
-    await moviesData.map(
-      (movie) => (newsArray = [...newsArray, movie])
-    );
+    await moviesData.map((movie) => (newsArray = [...newsArray, movie]));
   };
   setNewsArray();
 
   return (
     <Container>
-      <h4>Disney Original</h4>
+      <h4>News</h4>
       <Content>
         {!isEmpty(newsArray[0]) &&
           newsArray.map((movie, key) => {
@@ -70,7 +68,7 @@ const Wrap = styled.div`
 `;
 
 const Container = styled.div`
-  padding: 0 0 26px;
+  padding-bottom: 26px;
 `;
 
 const Content = styled.div`

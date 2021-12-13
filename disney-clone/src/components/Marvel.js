@@ -15,8 +15,19 @@ const Marvel = ({ movies }) => {
     arrow: true,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
     autoplay: false,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          autoplay: false,
+        },
+      },
+    ],
   };
   const moviesData = movies.current;
 
@@ -62,18 +73,19 @@ const Marvel = ({ movies }) => {
 };
 
 const Wrap = styled.div`
-  height: 200px;
-
   padding-top: 56%;
   border-radius: 10px;
-  box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
-    rgb(0 0 0 / 73%) 0px 16px 10px -10px;
   cursor: pointer;
   overflow: hidden;
   position: relative;
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   border: 3px solid rgba(249, 249, 249, 0.1);
-  margin-right: 25px;
+  box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
+    rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+
+  &:hover {
+    border: 3px solid rgba(249, 249, 249, 0.8);
+  }
   img {
     inset: 0px;
     display: block;
@@ -86,21 +98,19 @@ const Wrap = styled.div`
     z-index: 1;
     top: 0;
   }
-
-  &:hover {
-    box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
-      rgb(0 0 0 / 73%) 0px 16px 10px -10px;
-    transform: scale(1.05);
-    border-color: rgba(249, 249, 249, 0.8);
-  }
 `;
 
 const Container = styled.div`
-  padding: 0 0 26px`;
+  margin: 0 -12.5px;
+  h4 {
+    margin-left: 12.5px;
+  }
+`;
 
 const Carousel = styled(Slider)`
-  margin-top: 20px;
-  margin-right: -26px;
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(1, 1fr));
 
   & > button {
     opacity: 0;
@@ -127,6 +137,13 @@ const Carousel = styled(Slider)`
 
   .slick-list {
     overflow: hidden;
+    box-sizing: initial;
+    padding: 30px 0px;
+  }
+
+  .slick-slide {
+    margin-top: -30px;
+    padding: 0 12.5px;
   }
 `;
 

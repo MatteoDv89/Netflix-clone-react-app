@@ -7,7 +7,7 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDXwcLvif6hyBH666GrS6r_Wdl1OyGQ16o",
+  apiKey: `AIzaSyDXwcLvif6hyBH666GrS6r_Wdl1OyGQ16o`,
   authDomain: "disney-clone-bc86c.firebaseapp.com",
   projectId: "disney-clone-bc86c",
   storageBucket: "disney-clone-bc86c.appspot.com",
@@ -22,7 +22,6 @@ const storage = getStorage(app);
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
-
 
 export { storage, provider, auth };
 export default db;
