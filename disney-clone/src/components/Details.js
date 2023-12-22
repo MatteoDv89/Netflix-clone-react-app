@@ -103,8 +103,8 @@ const Details = () => {
               <iframe
                 src={
                   detailSubtilte?.includes("Série")
-                    ? `https://autoembed.xyz/tv/imdb/${imdbDataSerie}`
-                    : "https://autoembed.xyz/movie/imdb/" + imdbData
+                    ? `https://autoembed.to/tv/imdb/${imdbDataSerie}`
+                    : "https://autoembed.to/movie/imdb/" + imdbData
                 }
                 width="100%"
                 height="100%"
